@@ -17,7 +17,7 @@ public class PPLogin implements ActionListener
 
 // Initialize all of my values.
 	JPanel panel = new JPanel();
-	JFrame frame = new JFrame("Login Screen");
+	JFrame frame = new JFrame("Dank Meme");
 
 	private JButton loginButton;
 	private JButton saveButton;
