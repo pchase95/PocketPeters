@@ -62,6 +62,7 @@ public class PPLogin implements ActionListener
 
 	// Set up my panel for work.
 		frame.add(panel);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(500,300);
 		panel.setLayout(null);
 		panel.setBackground(background);
