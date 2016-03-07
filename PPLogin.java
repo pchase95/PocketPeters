@@ -80,7 +80,7 @@ public class PPLogin implements ActionListener
 		panel.add(exitButton);
 
 	//Title label
-		JLabel title = new JLabel("Pocket Peters!!!!!!!1");
+		JLabel title = new JLabel("Nice Meme");
 		title.setFont(h1);
 		title.setBounds(130, 25, 300, 50);
 
