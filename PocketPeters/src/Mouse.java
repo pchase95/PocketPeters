@@ -1,7 +1,11 @@
 import java.awt.event.*;
 public class Mouse implements MouseListener
 {
-	public Peters peter = new Peters();
+	private Peters peter;
+	public Mouse(Peters peter)
+	{
+		this.peter = peter;
+	}
 	public void mouseClicked(MouseEvent e){}
 	public void mousePressed(MouseEvent e){}
 	public void mouseReleased(MouseEvent e)
