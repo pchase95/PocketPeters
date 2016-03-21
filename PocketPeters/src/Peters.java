@@ -1,15 +1,15 @@
 import java.awt.*;
 public class Peters
 {
-	private int x = 300;
-	private int y = 300;
+	private int x;
+	private int y;
 	private int moveToX;
 	private int moveToY;
 	private boolean move = false;
-	public Peters()
+	public Peters(int x, int y)
 	{
-
-
+		this.x = x;
+		this.y = y;
 	}
 
 	public void paintPeter(Graphics g)
@@ -97,5 +97,10 @@ public class Peters
 			move = false;
 		}
 
+	}
+	
+	public boolean getMove()
+	{
+		return move;
 	}
 }
