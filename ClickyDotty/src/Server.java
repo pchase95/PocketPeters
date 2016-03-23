@@ -6,7 +6,7 @@ public class Server
 {
 	public static void main(String[] args) throws Exception
 	{
-		ArrayList<SSCH> clients = new ArrayList<>();
+		ArrayList<SSCH> clients = new ArrayList<SSCH>();
 		System.out.println("Server running...");
 		ServerSocket ss = new ServerSocket(4324);
 		while(true)
@@ -17,7 +17,7 @@ public class Server
 			clients.add(ssch);
 			Thread t = new Thread(ssch);
 			t.start();
-			System.out.printf("New client!! %i clients connected...%n", clients.size());
+			System.out.printf("New client!! %d clients connected...%n", clients.size());
 		}
 	}
 }

@@ -1,0 +1,60 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.Timer;
+
+public class Map extends JPanel implements MouseListener, ActionListener
+{
+	private Peter peter;
+	private JFrame frame;
+	private boolean moving = false;
+
+	public Map(Peter peter)
+	{
+		this.peter = peter;
+		buildMap();
+	}
+	
+	public void buildMap()
+	{
+		frame = new JFrame("PC:MO");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(650,650);
+		frame.add(this);
+		Timer timer = new Timer(40,this);
+		timer.start();
+		this.setFocusable(true);
+		frame.setVisible(true);
+		addMouseListener(this);
+	}
+	
+	public void paintComponent(Graphics g)
+	{
+		g.setColor(Color.red);
+		g.fillRect(0,0,650,650);
+		peter.paintPeter(g);
+	}
+	
+	public boolean getMoving()
+	{
+		return moving;
+	}
+	
+	public void actionPerformed(ActionEvent e)
+	{
+		repaint();
+	}
+	
+	public void mouseClicked(MouseEvent e){}
+	public void mousePressed(MouseEvent e){}
+	public void mouseReleased(MouseEvent e)
+	{
+		peter.movePeter(e.getX(),e.getY());
+	}
+	public void mouseExited(MouseEvent e){}
+	public void mouseEntered(MouseEvent e){}
+}
+
+

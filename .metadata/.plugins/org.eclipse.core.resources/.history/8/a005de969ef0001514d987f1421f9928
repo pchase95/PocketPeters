@@ -1,0 +1,15 @@
+
+
+public class Peter
+{
+	private int x;
+	private int y;
+	private int moveToX;
+	private int moveToY;
+	private boolean move = false;
+	public Peter(int x, int y)
+	{
+		this.x = x;
+		this.y = y;
+	}
+}

@@ -1,0 +1,36 @@
+import java.awt.event.*;
+import javax.swing.*;
+
+import javax.swing.JFrame;
+import javax.swing.Timer;
+
+public class Map implements MouseListener
+{
+	private Peter peter = new Peter(300, 300);
+	private JFrame frame;
+
+	
+	
+	public void buildMap()
+	{
+		frame = new JFrame("PC:MO");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(650,650);
+		frame.add(this);
+		Timer timer = new Timer(40,this);
+		timer.start();
+		frame.setVisible(true);
+		this.setFocusable(true);
+	}
+	
+	public void mouseClicked(MouseEvent e){}
+	public void mousePressed(MouseEvent e){}
+	public void mouseReleased(MouseEvent e)
+	{
+		peter.setCoord(e.getX(),e.getY());
+	}
+	public void mouseExited(MouseEvent e){}
+	public void mouseEntered(MouseEvent e){}
+}
+
+

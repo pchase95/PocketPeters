@@ -1,0 +1,7 @@
+
+
+public interface PositionListener
+{
+	public void movePeter(int x, int y);
+	public void removeUser();
+}

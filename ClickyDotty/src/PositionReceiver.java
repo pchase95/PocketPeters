@@ -15,6 +15,18 @@ public class PositionReceiver implements Runnable
 	
 	public void run()
 	{
-		
+		while(true)
+		{
+			try
+			{
+				Peter peter = (Peter)in.readUnshared(); //THIS LINE RIGHT HERE
+				PL.movePeter(peter.getNewX(), peter.getNewY());
+			}
+			catch(Exception e)
+			{
+				PL.removeUser();
+				break;
+			}
+		}
 	}
 }

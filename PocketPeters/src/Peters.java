@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.event.MouseEvent;
 public class Peters
 {
 	private int x;
@@ -17,7 +18,7 @@ public class Peters
 		if(move)
 		{
 			//moves peter and puts a dot where to move to
-			movePeter();
+			move();
 			g.setColor(Color.green);
 			g.fillOval(moveToX-2,moveToY-2,4,4);
 		}
@@ -42,7 +43,7 @@ public class Peters
 		return this.y;
 	}
 
-	private void movePeter()
+	private void move()
 	{
 		//move x
 		if(moveToX < x)
@@ -103,4 +104,6 @@ public class Peters
 	{
 		return move;
 	}
+	
+
 }

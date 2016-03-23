@@ -1,0 +1,5 @@
+public interface MessageListener
+{
+	public boolean deliverMessage(String s);
+	public void removeMe();
+}

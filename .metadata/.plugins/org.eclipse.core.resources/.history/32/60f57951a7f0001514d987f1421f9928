@@ -1,0 +1,103 @@
+import java.util.*;
+import java.io.*;
+import java.net.*;
+
+public class Client implements PositionListener
+{
+	private Peter peter = new Peter(300, 300);
+	public static void main(String[] args)
+	{
+		new Client().go();
+	}
+	
+	public void go()
+	{
+		Map map = new Map(peter);
+		connect();
+	}
+	
+	private void connect()
+	{
+		try
+		{
+			Socket sock = new Socket("localhost", 4324);
+			ObjectOutputStream out = new ObjectOutputStream(sock.getOutputStream());
+			ObjectInputStream in = new ObjectInputStream(sock.getInputStream());
+			PositionReceiver PR = new PositionReceiver(in, this);
+			Thread t = new Thread(PR);
+			t.start();
+			
+			while(true)
+			{
+				out.writeUnshared(peter);
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("Could not connect");
+		}
+	}
+	
+	public void movePeter(int moveToX, int moveToY)
+	{
+		this.moveToX = moveToX;
+		this.moveToY = moveToY;
+		//move x
+		if(moveToX < x)
+		{
+			if(moveToX-x > -10)
+			{
+				x = moveToX;
+			}
+			else
+			{
+				x = x - 10;
+			}
+		}
+		if(moveToX > x)
+		{
+			if(moveToX-x < 10)
+			{
+				x = moveToX;
+			}
+			else
+			{
+				x = x + 10;
+			}
+		}
+		//move y
+		if(moveToY < y)
+		{
+			if(moveToY-y > -10)
+			{
+				y = moveToY;
+			}
+			else
+			{
+				y = y - 10;
+			}
+		}
+		if(moveToY > y)
+		{
+			if(moveToY-y < 10)
+			{
+				y = moveToY;
+			}
+			else
+			{
+				y = y + 10;
+			}
+		}
+
+		//turns off move
+		if(moveToY == y && moveToX == x)
+		{
+			move = false;
+		}
+	}
+	
+	public void removeUser()
+	{
+		System.exit(0);
+	}
+}
