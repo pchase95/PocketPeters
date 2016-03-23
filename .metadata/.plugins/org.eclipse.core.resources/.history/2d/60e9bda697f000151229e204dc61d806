@@ -1,0 +1,17 @@
+import java.util.*;
+import java.io.*;
+import java.net.*;
+
+public class SSCH
+{
+	private ObjectInputStream in;
+	private ObjectOutputStream out;
+	private ArrayList<SSCH> clients;
+	private PositionReceiver mr;
+	
+	public SSCH(Socket sock, ArrayList<SSCH> clients)
+	{
+		
+	}
+	
+}

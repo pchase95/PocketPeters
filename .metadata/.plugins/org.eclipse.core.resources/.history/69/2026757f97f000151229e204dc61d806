@@ -1,0 +1,23 @@
+import java.util.*;
+import java.io.*;
+import java.net.*;
+
+public class Server
+{
+	public static void main(String[] args) throws Exception
+	{
+		List<SSCH> clients = new ArrayList<>();
+		System.out.println("Server running...");
+		ServerSocket ss = new ServerSocket(4324);
+		while(true)
+		{
+			System.out.println("Waiting for clients to connect...");
+			Socket sock = ss.accept();
+			SSCH ssch = new SSCH(sock, clients);
+			clients.add(ssch);
+			Thread t = new Thread(ssch);
+			t.start();
+			System.out.printf("New client!! %i clients connected...%n", clients.size());
+		}
+	}
+}
