@@ -52,11 +52,6 @@ public class Client implements PositionListener
 			e.printStackTrace();
 		}
 	}
-	
-	public void update()
-	{
-		map.callPaint();
-	}
 
 	public void removeUser()
 	{

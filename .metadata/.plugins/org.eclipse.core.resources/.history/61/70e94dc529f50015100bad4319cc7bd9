@@ -45,7 +45,11 @@ public class SSCH implements Runnable, PositionListener
 			e.printStackTrace();
 		}
 	}
-	public void writeOut(Peter p){}
+	public void writeOut(Peter p)
+	{
+		
+	}
+
 	public void update(){}
 	public void removeUser()
 	{

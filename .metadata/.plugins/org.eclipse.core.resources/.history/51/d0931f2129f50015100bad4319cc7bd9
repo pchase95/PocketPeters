@@ -22,7 +22,6 @@ public class PositionReceiver implements Runnable
 			{
 				peter = (Peter)in.readUnshared();
 				PL.movePeter(peter);
-				PL.update();
 			}
 			catch(Exception e)
 			{

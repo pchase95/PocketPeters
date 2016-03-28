@@ -52,10 +52,6 @@ public class Map extends JPanel implements MouseListener, ActionListener
 		peter.setX(e.getX());
 		peter.setY(e.getY());
 		PL.movePeter(peter);
-		PL.writeOut(peter);
-	}
-	public void callPaint()
-	{
 		repaint();
 	}
 	public void mousePressed(MouseEvent e){}

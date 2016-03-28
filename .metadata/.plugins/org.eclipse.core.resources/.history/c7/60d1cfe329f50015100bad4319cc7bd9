@@ -46,6 +46,7 @@ public class SSCH implements Runnable, PositionListener
 		}
 	}
 	public void writeOut(Peter p){}
+
 	public void update(){}
 	public void removeUser()
 	{

@@ -4,6 +4,4 @@ public interface PositionListener
 {
 	public void movePeter(Peter p);
 	public void removeUser();
-	public void writeOut(Peter p);
-	public void update();
 }

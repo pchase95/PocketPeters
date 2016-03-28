@@ -41,21 +41,15 @@ public class Client implements PositionListener
 
 	public void movePeter(Peter p)
 	{
-		map.addPeter(p);
-	}
-	public void writeOut(Peter p)
-	{
-		try {
+		try
+		{
+			map.addPeter(p);
 			out.writeUnshared(p);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		}
+		catch(Exception e)
+		{
 			e.printStackTrace();
 		}
-	}
-	
-	public void update()
-	{
-		map.callPaint();
 	}
 
 	public void removeUser()

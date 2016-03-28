@@ -53,6 +53,7 @@ public class Map extends JPanel implements MouseListener, ActionListener
 		peter.setY(e.getY());
 		PL.movePeter(peter);
 		PL.writeOut(peter);
+		repaint();
 	}
 	public void callPaint()
 	{
