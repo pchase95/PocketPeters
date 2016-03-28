@@ -1,23 +1,25 @@
 import java.util.*;
-import java.net.*;
 import java.io.*;
+import java.net.*;
 
 public class Server
 {
+	public static ArrayList<SSCH> clients = new ArrayList<SSCH>();
+	//public static Map map = new Map();
 	public static void main(String[] args) throws Exception
 	{
-		ArrayList<ServerSideClientHandler> list = new ArrayList<ServerSideClientHandler>();
-		System.out.println("Server Started...");
+		System.out.println("Server running...");
 		ServerSocket ss = new ServerSocket(4324);
+		
 		while(true)
 		{
 			System.out.println("Waiting for clients to connect...");
-			Socket socket = ss.accept();
-			ServerSideClientHandler ssch = new ServerSideClientHandler(socket, list);
-			list.add(ssch);
+			Socket sock = ss.accept();
+			SSCH ssch = new SSCH(sock, clients);
+			clients.add(ssch);
 			Thread t = new Thread(ssch);
 			t.start();
-			System.out.println("Client connected.  There are " + list.size() + " clients connected.");
+			System.out.printf("New client!! %d clients connected...%n", clients.size());
 		}
 	}
 }

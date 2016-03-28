@@ -1,0 +1,10 @@
+import java.util.*;
+import java.io.*;
+import java.net.*;
+
+public class PositionReceiver
+{
+	private ObjectInputStream in;
+	private PositionListener PL;
+	
+}

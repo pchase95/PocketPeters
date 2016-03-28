@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.*;
+import java.util.*;
 import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.Timer;
@@ -8,16 +9,20 @@ import javax.swing.Timer;
 public class Map extends JPanel implements MouseListener, ActionListener
 {
 	private Peter peter;
+	private List<Peter> peters = new ArrayList<>();
+	private PositionListener PL;
 	private JFrame frame;
 	private boolean moving = false;
-	PositionListener PL;
-
+	
+	public Map(){}
+	/*
 	public Map(Peter peter, PositionListener PL)
 	{
 		this.PL = PL;
 		this.peter = peter;
 		buildMap();
 	}
+	*/
 	
 	public void buildMap()
 	{
@@ -36,7 +41,8 @@ public class Map extends JPanel implements MouseListener, ActionListener
 	{
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0,0,650,650);
-		peter.paintPeter(g);
+		for(Peter p : peters)
+			p.paintPeter(g);
 	}
 	
 	public boolean getMoving()
@@ -49,17 +55,20 @@ public class Map extends JPanel implements MouseListener, ActionListener
 		repaint();
 	}
 	
-	public void mouseClicked(MouseEvent e){}
-	public void mousePressed(MouseEvent e){}
-	public void mouseReleased(MouseEvent e)
+	public void mouseClicked(MouseEvent e)
 	{
-		peter.setNewX(e.getX());
-		peter.setNewY(e.getY());
-		PL.movePeter(peter.getNewX(), peter.getNewY());
-		peter.setMove(true);
+		PL.movePeter(e.getX(), e.getY(), peter);
+		peter.setMove(true);		
 	}
+	public void mousePressed(MouseEvent e){}
+	public void mouseReleased(MouseEvent e){}
 	public void mouseExited(MouseEvent e){}
 	public void mouseEntered(MouseEvent e){}
+	
+	
+	public void addPeter(Peter p) { peters.add(p); }
+	public void setPeter(Peter p){ this.peter = p; }
+	public void setPL(PositionListener PL) { this.PL = PL; }
 }
 
 

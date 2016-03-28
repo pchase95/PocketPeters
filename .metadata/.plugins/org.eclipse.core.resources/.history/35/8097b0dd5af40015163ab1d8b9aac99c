@@ -1,0 +1,18 @@
+import java.util.*;
+import java.io.*;
+import java.net.*;
+
+public class SSCH implements Runnable, PositionListener
+{
+	
+	
+	public void movePeter(int x, int y, Peter p)
+	{
+		
+	}
+	
+	public void run()
+	{
+		System.out.println("New client is here!");
+	}
+}

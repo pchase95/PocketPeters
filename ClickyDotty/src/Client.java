@@ -5,7 +5,6 @@ import java.net.*;
 public class Client implements PositionListener
 {
 	private Peter peter = new Peter(300, 300);
-	private Map map;
 	public static void main(String[] args)
 	{
 		new Client().go();
@@ -13,7 +12,10 @@ public class Client implements PositionListener
 	
 	public void go()
 	{
-		map = new Map(peter, this);
+		//map = new Map(peter, this);
+		Server.map.addPeter(peter);
+		Server.map.setPL(this);
+		Server.map.buildMap();
 		connect();
 	}
 	
@@ -30,6 +32,7 @@ public class Client implements PositionListener
 			while(true)
 			{
 				out.writeUnshared(peter); //why can I not do this jesus
+				Thread.sleep(250);
 			}
 		}
 		catch(Exception e)
@@ -38,8 +41,9 @@ public class Client implements PositionListener
 		}
 	}
 	
-	public void movePeter(int newX, int newY)
+	public void movePeter(int newX, int newY, Peter p)
 	{
+		Server.map.setPeter(peter);
 		peter.movePeter(newX, newY);
 		peter.setMove(true);
 	}

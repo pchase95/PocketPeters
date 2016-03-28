@@ -1,0 +1,58 @@
+import java.util.*;
+import java.io.*;
+import java.net.*;
+
+public class Client implements PositionListener
+{
+	private Peter peter;
+	private Map map;
+	
+	public static void main(String[] args)
+	{
+		new Client();
+	}
+	
+	public Client()
+	{
+		peter = new Peter(300, 300);
+		map = new Map();
+		map.buildMap();
+		map.addPeter(peter);
+		Connect();
+	}
+
+	private void Connect()
+	{
+		try
+		{
+			Socket socket = new Socket("localhost", 4324);
+			ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+			ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+			PositionReceiver PR = new PositionReceiver(in, this);
+			Thread t = new Thread(PR);
+			t.start();
+			while(true)
+			{
+				out.writeObject(peter);
+				//System.out.printf("X: %d; Y: %d%n", peter.getX(), peter.getY());
+				Thread.sleep(250);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void movePeter(Peter p)
+	{
+		peter = new Peter();
+		peter = p;
+		map.addPeter(peter);
+	}
+
+	public void removeUser()
+	{
+		System.exit(0);
+	}
+}

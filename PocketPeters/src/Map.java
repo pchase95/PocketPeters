@@ -1,48 +1,67 @@
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.*;
-public class Map extends JPanel implements ActionListener
+import java.util.*;
+import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.Timer;
+
+public class Map extends JPanel implements MouseListener, ActionListener
 {
-	public Peters peter = new Peters(300, 300);
-	public Peters peter2 = new Peters(300, 300);
-	private Mouse mouse = new Mouse(peter);
-	public static void main(String[] args)
+	private JFrame frame;
+	private PositionListener PL;
+	private Peter peter;
+	private List<Peter> peters = new ArrayList<>();
+	public Map(){}
+	public Map(PositionListener PL)
 	{
-		new Map().go();
+		this.PL = PL;
 	}
-
-	private void go()
-	{
-		buildMap();
-	}
-
+	
 	public void buildMap()
 	{
-		JFrame frame = new JFrame("PC:MO");
+		frame = new JFrame("PC:MO");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(650,650);
 		frame.add(this);
 		Timer timer = new Timer(40,this);
 		timer.start();
-		frame.setVisible(true);
 		this.setFocusable(true);
+		frame.setVisible(true);
+		addMouseListener(this);
 	}
-
-	public Map()
-	{
-		addMouseListener(mouse);
-	}
-
+	
 	public void paintComponent(Graphics g)
 	{
-		g.setColor(Color.red);
+		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0,0,650,650);
-		peter.paintPeter(g);
-		peter2.paintPeter(g);
+		for(Peter p : peters)
+		{
+			p.paintPeter(g);
+		}
 	}
-
+	
 	public void actionPerformed(ActionEvent e)
 	{
+		
+	}
+	
+	public void mouseClicked(MouseEvent e)
+	{
+		peter = new Peter();
+		peter.setX(e.getX());
+		peter.setY(e.getY());
+		PL.movePeter(peter);
 		repaint();
 	}
+	public void mousePressed(MouseEvent e){}
+	public void mouseReleased(MouseEvent e){}
+	public void mouseExited(MouseEvent e){}
+	public void mouseEntered(MouseEvent e){}
+	
+	public void setPeter(Peter p) { this.peter = p; }
+	public List<Peter> getPeters() { return this.peters; }
+	public void addPeter(Peter p){ peters.add(p); }
 }
+
+
