@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
-public class Map extends JPanel implements KeyListener, ActionListener
+public class Map extends JPanel implements MouseListener, ActionListener
 {
 	private JFrame frame;
 	private Client client;
@@ -28,7 +28,7 @@ public class Map extends JPanel implements KeyListener, ActionListener
 		timer.start();
 		this.setFocusable(true);
 		frame.setVisible(true);
-		addKeyListener(this);
+		addMouseListener(this);
 	}
 	
 	public void paintComponent(Graphics g)
@@ -46,19 +46,14 @@ public class Map extends JPanel implements KeyListener, ActionListener
 		
 	}
 	
-	public void keyPressed(KeyEvent e)
+	public void mouseClicked(MouseEvent e)
 	{
-		if(e.getKeyCode() == KeyEvent.VK_UP)
-			client.movePeter(client.getPeter().getX(), client.getPeter().getY()-10);
-		if(e.getKeyCode() == KeyEvent.VK_DOWN)
-			client.movePeter(client.getPeter().getX(), client.getPeter().getY()+10);
-		if(e.getKeyCode() == KeyEvent.VK_LEFT)
-			client.movePeter(client.getPeter().getX()-10, client.getPeter().getY());
-		if(e.getKeyCode() == KeyEvent.VK_RIGHT)
-			client.movePeter(client.getPeter().getX()+10, client.getPeter().getY());
+		client.movePeter(e.getX(), e.getY());
 	}
-	public void keyReleased(KeyEvent e){}
-	public void keyTyped(KeyEvent e){}
+	public void mousePressed(MouseEvent e){}
+	public void mouseReleased(MouseEvent e){}
+	public void mouseExited(MouseEvent e){}
+	public void mouseEntered(MouseEvent e){}
 
 }
 
