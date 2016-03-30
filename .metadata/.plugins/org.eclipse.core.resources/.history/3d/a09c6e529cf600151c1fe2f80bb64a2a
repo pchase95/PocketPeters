@@ -1,0 +1,113 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.io.Serializable;
+
+public class Peter implements Serializable
+{
+	private String ID;
+	private int x;
+	private int y;
+	//private int moveToX;
+	//private int moveToY;
+	//private boolean move = false;
+	
+	private Peter(){}
+	public Peter(Peter p)
+	{
+		this.x = p.x;
+		this.y = p.y;
+		this.ID = p.ID;
+	}
+	public Peter(int x, int y, String ID)
+	{
+		this.x = x;
+		this.y = y;
+		this.ID = ID;
+	}
+	
+	
+	public void paintPeter(Graphics g)
+	{/*
+		
+		if(move)
+		{
+			//moves peter and puts a dot where to move to
+			moveMe(moveToX,moveToY);
+			g.setColor(Color.green);
+			g.fillOval(moveToX-2,moveToY-2,4,4);
+		}
+		*/
+		g.setColor(Color.blue);
+		g.fillOval(x-10,y-10,20,20);
+	}
+	
+	public void moveMe(int moveToX, int moveToY)
+	{
+		this.moveToX = moveToX;
+		this.moveToY = moveToY;
+		/*
+		move = true;
+		this.moveToX = moveToX;
+		this.moveToY = moveToY;
+		if(moveToX < x)
+		{
+			if(moveToX-x > -10)
+			{
+				x = moveToX;
+			}
+			else
+			{
+				x = x - 10;
+			}
+		}
+		if(moveToX > x)
+		{
+			if(moveToX-x < 10)
+			{
+				x = moveToX;
+			}
+			else
+			{
+				x = x + 10;
+			}
+		}
+		//move y
+		if(moveToY < y)
+		{
+			if(moveToY-y > -10)
+			{
+				y = moveToY;
+			}
+			else
+			{
+				y = y - 10;
+			}
+		}
+		if(moveToY > y)
+		{
+			if(moveToY-y < 10)
+			{
+				y = moveToY;
+			}
+			else
+			{
+				y = y + 10;
+			}
+		}
+
+		//turns off move
+		if(moveToY == y && moveToX == x)
+		{
+			move = false;
+		}
+		*/
+	}
+	
+	public int getX() { return this.x; }
+	public int getY() { return this.y; }
+	public void setX( int a ) { this.x = a; }
+	public void setY( int a ) { this.y = a; }
+	public String toString() { return String.format("%s%n",this.ID); }
+	public String getID() { return this.ID; }
+	
+}

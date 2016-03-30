@@ -1,0 +1,21 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class Login extends JPanel implements ActionListener
+{
+	public Login()
+	{
+		BuildLogin();
+	}
+	
+	private void BuildLogin()
+	{
+		
+	}
+	
+	public void actionPerformed(ActionEvent a)
+	{
+		
+	}
+}

@@ -1,0 +1,30 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class Login extends JPanel implements ActionListener
+{
+	JFrame f;
+	JLabel title;
+	
+	public Login()
+	{
+		BuildLogin();
+	}
+	
+	private void BuildLogin()
+	{
+		f = new JFrame("Login");
+		setLayout(new BorderLayout());
+		title = new JLabel("Welcome to Pete Arena!");
+		this.add(title, BorderLayout.NORTH);
+		
+		f.add(this);
+		f.setVisible(true);
+	}
+	
+	public void actionPerformed(ActionEvent a)
+	{
+		
+	}
+}

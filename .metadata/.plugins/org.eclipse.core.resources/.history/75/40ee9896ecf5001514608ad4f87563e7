@@ -1,0 +1,63 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class Login implements ActionListener
+{
+	private JFrame f;
+	private JPanel p;
+	private JPanel grid;
+	private JLabel title;
+	private JLabel name_label;
+	private JLabel IP_label;
+	private JTextField name_field;
+	private JTextField IP_field;
+	private JButton login_button;
+	
+	public static void main(String[] args)
+	{
+		new Login();
+	}
+	
+	public Login()
+	{
+		BuildLogin();
+	}
+	
+	private void BuildLogin()
+	{
+		f = new JFrame("Login");
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		p = new JPanel();
+		p.setLayout(new BorderLayout());
+		
+		title = new JLabel("Welcome to Pete Arena!");
+		p.add(title, BorderLayout.NORTH);
+		
+		grid = new JPanel();
+		grid.setLayout(new GridLayout(1, 0));
+		name_label = new JLabel("Name");
+		grid.add(name_label);
+		name_field = new JTextField();
+		grid.add(name_field);
+		IP_label = new JLabel("IP Address");
+		grid.add(IP_label);
+		IP_field = new JTextField();
+		grid.add(IP_field);
+		p.add(grid, BorderLayout.CENTER);
+		login_button = new JButton("Login");
+		p.add(login_button, BorderLayout.SOUTH);
+		login_button.addActionListener(this);
+		f.add(p);
+		f.setVisible(true);
+	}
+	
+	public void actionPerformed(ActionEvent a)
+	{
+		if(a.getSource() == login_button)
+		{
+			f.dispose();
+			new Client(name_field.getText().trim(), Integer.parseInt(IP_field.getText().trim()));
+		}
+	}
+}

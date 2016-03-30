@@ -1,0 +1,63 @@
+import java.util.*;
+import java.io.*;
+import java.net.*;
+
+public class SSCH implements Runnable, PositionListener
+{
+	private ObjectInputStream in;
+	private ObjectOutputStream out;
+	private ArrayList<SSCH> list;
+	private PositionReceiver PR;
+	private Peter peter;
+
+	public SSCH(Socket socket, ArrayList<SSCH> list)
+	{
+		try
+		{
+			in = new ObjectInputStream(socket.getInputStream());
+			PR = new PositionReceiver(in, this);
+			Thread t = new Thread(PR);
+			out = new ObjectOutputStream(socket.getOutputStream());
+			t.start();
+			this.list = list;
+		}
+		catch(Exception e)
+		{
+			System.out.println("Unable to connect.");
+			e.printStackTrace();
+		}
+	}	
+	
+	public void movePeter(Peter p)
+	{
+		for(SSCH ssch : list)
+			ssch.sendPeter(p);
+	}
+	
+	public void sendPeter(Peter p)
+	{
+		try
+		{
+			out.writeUnshared(p);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	public void writeOut(Peter p){}
+	public void update(){}
+	public void removeUser()
+	{
+		list.remove(this);
+		System.printf("A user has left... %d users left%n", list.size());
+	}
+	
+	public void run()
+	{
+		System.out.println("New client is here!");
+	}
+	
+	public Peter getPeter() { return this.peter; }
+	
+}
