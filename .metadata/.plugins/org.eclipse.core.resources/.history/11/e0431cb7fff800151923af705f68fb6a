@@ -1,0 +1,12 @@
+
+public class Peter
+{
+	String name;
+	int age;
+	float money;
+	
+	public Peter()
+	{
+		
+	}
+}

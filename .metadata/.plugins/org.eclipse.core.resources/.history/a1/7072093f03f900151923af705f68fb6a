@@ -1,0 +1,32 @@
+import java.util.*;
+import java.io.*;
+import java.net.*;
+
+public class DatagramServer extends Thread
+{
+	protected DatagramSocket SOCK = null;
+
+	
+	public static void main(String[] args)
+	{
+		DatagramServer server = new DatagramServer();
+		server.start();
+	}
+	
+	public DatagramServer()
+	{
+		try
+		{
+			SOCK = new DatagramSocket(4324);
+		}
+		catch (SocketException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void run()
+	{
+
+	}
+}

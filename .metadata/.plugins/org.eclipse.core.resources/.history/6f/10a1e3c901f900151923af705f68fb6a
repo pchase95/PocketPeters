@@ -1,0 +1,28 @@
+import java.io.*;
+import java.net.*;
+import java.util.*;
+
+public class DatagramClient
+{
+	public static void main(String[] args)
+	{
+		DatagramSocket dSock;
+		Peter peter = new Peter();
+		peter.setName("SexyPete");
+		peter.setAge(19);
+		peter.setMoney(17.34);
+		try
+		{
+			dSock = new DatagramSocket();
+			byte [] buf = new byte[256];
+			InetAddress IP_ADDRESS = InetAddress.getByName("localhost");
+			DatagramPacket PACKET = new DatagramPacket(buf, buf.length, IP_ADDRESS, 4324);
+			dSock.send(PACKET);
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+}

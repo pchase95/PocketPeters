@@ -1,0 +1,24 @@
+import java.net.*;
+
+public class DatagramClient extends Thread
+{
+	private InetAddress ipAddress;
+	private DatagramSocket socket;
+	private Game game;
+	
+	public static void main(String[] args)
+	{
+		new DatagramClient();
+	}
+
+	public DatagramClient()
+	{
+		
+	}
+	
+	
+	public void run()
+	{
+		
+	}
+}

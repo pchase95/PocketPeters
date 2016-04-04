@@ -1,0 +1,30 @@
+import java.net.*;
+
+public class DatagramClient extends Thread
+{
+	private InetAddress ipAddress;
+	private DatagramSocket socket;
+	//private Game game;
+	
+	public static void main(String[] args)
+	{
+		new DatagramClient();
+	}
+
+	public DatagramClient(String ipAddress)
+	{
+		try{
+			this.socket = new DatagramSocket();
+			this.ipAddress = InetAddress.getByName(ipAddress);
+		} catch(SocketException | UnknownHostException e){
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	public void run()
+	{
+		
+	}
+}

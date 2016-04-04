@@ -1,0 +1,33 @@
+import java.util.*;
+
+public class Game
+{
+	private Scanner keys;
+	public static void main(String[] args)
+	{
+		new Game();
+	}
+	
+	public Game()
+	{
+		keys = new Scanner(System.in);
+		init();
+	}
+	
+	private void init()
+	{
+		while(true)
+		{
+			if(getInput().equals("q"))
+			{
+				break;
+			}
+		}
+	}
+	
+	
+	private String getInput()
+	{
+		return keys.nextLine();
+	}
+}

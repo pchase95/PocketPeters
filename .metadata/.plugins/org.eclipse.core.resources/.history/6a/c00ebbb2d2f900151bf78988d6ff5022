@@ -1,0 +1,54 @@
+import java.util.*;
+import java.io.*;
+import java.net.*;
+
+public class DatagramServer extends Thread
+{
+	protected DatagramSocket SOCK = null;
+
+	
+	public static void main(String[] args)
+	{
+		DatagramServer server = new DatagramServer();
+		server.start();
+	}
+	
+	public DatagramServer()
+	{
+		try
+		{
+			SOCK = new DatagramSocket(4324);
+		}
+		catch (SocketException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void run()
+	{
+		while(true)
+		{
+			try
+			{
+				byte[] BUFFER = new byte[256];
+				
+				String msg = "Nice Meme";
+				BUFFER = msg.getBytes();
+				
+				InetAddress IP_ADDRESS_GROUP = InetAddress.getByName("localhost");
+				DatagramPacket PACKET = new DatagramPacket(BUFFER, BUFFER.length, IP_ADDRESS_GROUP, 4324);
+				
+				SOCK.send(PACKET);
+				Thread.sleep(1000);
+			}
+			catch(IOException | InterruptedException e)
+			{
+				e.printStackTrace();
+				break;
+			}
+		}
+		SOCK.close();
+	}
+
+}

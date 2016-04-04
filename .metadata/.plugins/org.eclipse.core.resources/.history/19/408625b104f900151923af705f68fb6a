@@ -1,0 +1,36 @@
+import java.io.*;
+import java.net.*;
+import java.util.*;
+
+public class DatagramClient
+{
+	public static void main(String[] args)
+	{
+		new DatagramClient();
+	}
+	
+	public DatagramClient()
+	{
+		Connect();
+	}
+	
+	private void Connect()
+	{
+		try
+		{
+			MulticastSocket SOCK = new MulticastSocket(4324);
+			InetAddress IP_ADDRESS = InetAddress.getByName("localhost");
+			SOCK.joinGroup(IP_ADDRESS);
+			
+			DatagramPacket PACKET;
+			for(int i = 0; i < 3; i++)
+			{
+				byte[] buf = new byte[256];
+			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+}

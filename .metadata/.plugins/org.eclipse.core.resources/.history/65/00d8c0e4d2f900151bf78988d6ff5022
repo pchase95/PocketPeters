@@ -1,0 +1,17 @@
+import java.net.*;
+
+public class DatagramClient extends Thread
+{
+	public static void main(String[] args)
+	{
+		new DatagramClient();
+	}
+
+	
+	
+	
+	public void run()
+	{
+		
+	}
+}

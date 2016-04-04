@@ -1,0 +1,21 @@
+import java.io.*;
+import java.net.*;
+import java.util.*;
+
+public class DatagramClient
+{
+	public static void main(String[] args)
+	{
+		new DatagramClient();
+	}
+	
+	public DatagramClient()
+	{
+		Connect();
+	}
+	
+	private void Connect()
+	{
+		MulticastSocket SOCK = new MulticastSocket(4324);
+	}
+}

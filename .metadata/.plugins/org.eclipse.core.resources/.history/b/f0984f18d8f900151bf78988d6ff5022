@@ -1,0 +1,38 @@
+import java.util.*;
+
+public class Game
+{
+	private Scanner keys;
+	private DatagramClient client;
+	private DatagramServer server;
+	
+	public static void main(String[] args)
+	{
+		new Game();
+	}
+	
+	public Game()
+	{
+		keys = new Scanner(System.in);
+		init();
+	}
+	
+	private void init()
+	{
+		while(true)
+		{
+			if(getInput().equals("q"))
+			{
+				System.out.println("bye bye");
+				break;
+			}
+		}
+	}
+	
+	
+	private String getInput()
+	{
+		System.out.println("Enter a string: ");
+		return keys.nextLine();
+	}
+}
