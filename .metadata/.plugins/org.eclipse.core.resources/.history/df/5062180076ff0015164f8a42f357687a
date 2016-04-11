@@ -1,0 +1,46 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+
+public class Map extends JPanel implements ActionListener
+{
+	private JFrame f;
+	private Player player;
+	public Map()
+	{
+		f = new JFrame("Memes");
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setSize(1000, 800);
+		paintTiles();
+		player = new Player(400, 300);
+		this.addKeyListener(player);
+		Timer t = new Timer(16, this);
+		t.start();
+		f.add(this);
+		f.setVisible(true);
+		setFocusable(true);
+	}
+	
+	private void paintTiles()
+	{
+		
+	}
+	
+	public void paintComponent(Graphics g)
+	{
+		g.setColor(Color.LIGHT_GRAY);
+		g.fillRect(0, 0, 1000, 800);
+		player.paintPlayer(g);
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+		repaint();
+	}
+}

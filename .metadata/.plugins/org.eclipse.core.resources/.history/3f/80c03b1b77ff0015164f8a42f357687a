@@ -1,0 +1,12 @@
+
+public class BattleGrounds
+{
+	public static int map1_width;
+	public static int map1_height;
+	public static int [][] map1 = {
+			{1, 1, 1, 1, 1},
+			{1, 1, 1, 1, 1},
+			{1, 1, 1, 1, 1},
+			{1, 1, 1, 1, 1}
+	};
+}

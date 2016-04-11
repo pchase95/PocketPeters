@@ -1,0 +1,6 @@
+package tiles;
+
+public class Tiles
+{
+	private int width = 10, height = 10;
+}

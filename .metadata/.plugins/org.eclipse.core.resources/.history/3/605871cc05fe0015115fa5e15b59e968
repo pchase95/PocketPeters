@@ -1,0 +1,21 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class Player extends JPanel
+{
+	private int x_pos;
+	private int y_pos;
+	public Player(int x_pos, int y_pos)
+	{
+		this.x_pos = x_pos;
+		this.y_pos = y_pos;
+	}
+	
+	public void paintPlayer(Graphics g)
+	{
+		g.setColor(Color.RED);
+		g.fillOval(x_pos, y_pos, 30, 30);
+	}
+
+}

@@ -1,0 +1,76 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+
+public class Map extends JPanel implements KeyListener, ActionListener
+{
+	private JFrame f;
+	private Player player;
+	public Map()
+	{
+		f = new JFrame("Memes");
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setSize(800, 600);
+		
+		player = new Player(400, 300);
+		addKeyListener(this);
+		Timer t = new Timer(16, this);
+		t.start();
+		f.add(this);
+		f.setVisible(true);
+		f.setFocusable(true);
+	}
+	
+	
+	public void paintComponent(Graphics g)
+	{
+		g.setColor(Color.LIGHT_GRAY);
+		g.fillRect(0, 0, 800, 600);
+		player.paintPlayer(g);
+	}
+
+
+	@Override
+	public void keyTyped(KeyEvent e) {}
+
+
+	@Override
+	public void keyPressed(KeyEvent e)
+	{
+		if(e.getKeyCode() == KeyEvent.VK_W)
+			player.setYVEL(-20);
+		if(e.getKeyCode() == KeyEvent.VK_A)
+			player.setXVEL(-20);
+		if(e.getKeyCode() == KeyEvent.VK_S)
+			player.setYVEL(20);
+		if(e.getKeyCode() == KeyEvent.VK_D)
+			player.setXVEL(20);
+	}
+	@Override
+	public void keyReleased(KeyEvent e)
+	{
+		if(e.getKeyCode() == KeyEvent.VK_W)
+			player.setYVEL(0);
+		if(e.getKeyCode() == KeyEvent.VK_A)
+			player.setXVEL(0);
+		if(e.getKeyCode() == KeyEvent.VK_S)
+			player.setYVEL(0);
+		if(e.getKeyCode() == KeyEvent.VK_D)
+			player.setXVEL(0);
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+		updatePosition();
+		repaint();
+	}
+}

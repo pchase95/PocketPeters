@@ -1,0 +1,15 @@
+import javax.swing.JPanel;
+
+public class Map extends JPanel
+{
+	public Map()
+	{
+		
+	}
+	
+	
+	public void paintComponent(Graphics g)
+	{
+		
+	}
+}

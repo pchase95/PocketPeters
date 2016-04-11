@@ -1,0 +1,13 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class Player 
+{
+	private int x_pos;
+	private int y_pos;
+	public Player()
+	{
+		
+	}
+}

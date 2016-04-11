@@ -1,0 +1,25 @@
+import java.awt.Color;
+import java.awt.Graphics;
+
+public class Player
+{
+	private int x_pos, y_pos;
+	private int x_vel = 0, y_vel = 0;
+	
+	public Player(int x_pos, int y_pos)
+	{
+		this.x_pos = x_pos;
+		this.y_pos = y_pos;
+	}
+	
+	public void paintPlayer(Graphics g)
+	{
+		x_pos += x_vel;
+		y_pos += y_vel;
+		g.setColor(Color.RED);
+		g.fillOval(x_pos-15, y_pos-15, 30, 30);
+	}
+	
+	public void setXVEL(int i) { this.x_vel = i; }
+	public void setYVEL(int i) { this.y_vel = i; }
+}

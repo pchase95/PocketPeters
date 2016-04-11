@@ -1,0 +1,23 @@
+import java.awt.Color;
+import java.awt.Graphics;
+
+public class Wall
+{
+
+	private int width = 50, height = 50;
+	private int x, y;
+	private Color color = Color.BLUE;
+	
+	public Wall(int x, int y)
+	{
+		this.x = x;
+		this.y = y;
+	}
+	
+	public void paintWall(Graphics g)
+	{
+		g.setColor(color);
+		g.fillRect(x, y, width, height);
+	}
+
+}

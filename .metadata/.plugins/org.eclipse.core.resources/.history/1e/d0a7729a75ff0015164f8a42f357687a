@@ -1,0 +1,16 @@
+package tiles;
+
+import java.awt.Graphics;
+
+public class Tiles
+{
+	private int width = 10, height = 10;
+	private int x, y;
+	private Color color;
+	
+	public void paintTile(Graphics g)
+	{
+		g.setColor(color);
+		g.fillRect(x, y, width, height);
+	}
+}

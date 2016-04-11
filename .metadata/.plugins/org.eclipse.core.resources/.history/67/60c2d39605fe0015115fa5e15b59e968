@@ -1,0 +1,26 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class Map extends JPanel implements MouseListener
+{
+	private JFrame f;
+	
+	public Map()
+	{
+		f = new JFrame("Map");
+		f.setSize(800,600);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setBackground(Color.WHITE);
+		
+		
+		f.add(this);
+		f.setVisible(true);
+	}
+	
+	public void mousePressed(MouseEvent e){}
+	public void mouseReleased(MouseEvent e){}
+	public void mouseEntered(MouseEvent e){}
+	public void mouseExited(MouseEvent e){}
+	public void mouseClicked(MouseEvent e){}
+}
