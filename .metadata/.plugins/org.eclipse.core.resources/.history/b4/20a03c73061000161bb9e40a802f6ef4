@@ -1,0 +1,32 @@
+package packets;
+
+import java.net.DatagramPacket;
+
+import game.Client;
+import game.Server;
+
+public class Packet03Start extends Packet {
+	public Packet03Start(DatagramPacket packet) {
+		super("03", packet);
+	}
+	@Override
+	public void writeClient(Client client) {
+
+	}
+
+	@Override
+	public void writeServer(Server server) {
+
+	}
+
+	@Override
+	public void readClient(Client client) {
+
+	}
+
+	@Override
+	public void readServer(Server server) {
+
+	}
+
+}

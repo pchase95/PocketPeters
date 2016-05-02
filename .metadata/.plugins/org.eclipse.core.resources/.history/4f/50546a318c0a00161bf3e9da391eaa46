@@ -1,0 +1,71 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class Lobby extends JPanel {
+	private Game game;
+	private JFrame f;
+	private JPanel buffer;
+	private JPanel south_panel;
+	private JTextField chat_field;
+	private JTextArea chat_area;
+	private JScrollPane area_scroll_pane;
+	private JScrollPane field_scroll_pane;
+	private JButton send_button;
+	private String client_name;
+	
+	public Lobby(Game game, String new_client_name, String new_client_IP) {
+		this.game = game;
+		this.client_name = new_client_name;
+		buildLobby();	}
+	
+	private void buildLobby() {
+		//frame
+		f = new JFrame("Lobby");
+		f.setSize(800, 600);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLayout(new BorderLayout());
+		
+		//chat area
+		chat_area = new JTextArea();
+		chat_area.setLineWrap(true);
+		chat_area.setEditable(false);
+		area_scroll_pane = new JScrollPane(chat_area);
+		add(area_scroll_pane, BorderLayout.CENTER);
+		
+		//chat field
+		south_panel = new JPanel();
+		south_panel.setLayout(new BorderLayout());
+		chat_field = new JTextField();
+		field_scroll_pane = new JScrollPane(chat_field);
+		south_panel.add(field_scroll_pane, BorderLayout.CENTER);
+		buffer = new JPanel();
+		south_panel.add(buffer, BorderLayout.NORTH);
+		send_button = new JButton("Send");
+		send_button.addActionListener(e -> {
+			String msg = chat_field.getText().trim();
+			game.getClient().sendData(msg.getBytes());
+			chat_field.setText("");		
+		});
+		south_panel.add(send_button, BorderLayout.WEST);
+		add(south_panel, BorderLayout.SOUTH);
+		
+		
+		//initialize
+		f.add(this);
+		f.setVisible(true);
+	}
+	
+	public void appendMsg(String msg) {
+		chat_area.append(client_name + " said: " + msg + "\n");
+	}
+	
+	public void normalMsg(String msg) {
+		chat_area.append(msg + "\n");
+	}
+	
+	public String getClientName() {
+		return client_name;
+	}
+
+}

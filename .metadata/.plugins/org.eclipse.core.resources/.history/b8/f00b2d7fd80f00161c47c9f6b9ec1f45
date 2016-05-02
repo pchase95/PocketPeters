@@ -1,0 +1,51 @@
+import java.net.DatagramPacket;
+import java.util.List;
+
+public class Packet00Login extends Packet {
+
+	private static final long serialVersionUID = 1L;
+	private String client_name;
+	private DatagramPacket packet;
+	private ClientHandler ch;
+	public Packet00Login(DatagramPacket packet) {
+		super("00");
+		this.packet = packet;
+		this.client_name = setClientName();
+	}
+	
+	private String setClientName() {
+		String str = new String(packet.getData()).trim();
+		return str.substring(2);
+	}
+	
+	public Packet00Login(String client_name) {
+		super("00");
+		this.client_name = client_name;
+	}
+
+	@Override
+	public void writeClient(Client client) {
+		client.sendData(new String(this.ID + client_name).getBytes());
+	}
+	
+	@Override
+	public void readClient(Client client) {
+		client.getGame().getLobby().newUser(client_name);
+	}
+
+	
+	@Override
+	public void writeServer(Server server) {
+		server.sendData(ch.toString().getBytes(), ch.clientAddress(), ch.clientPort());
+	}
+
+	@Override
+	public void readServer(Server server) {
+		server.newClient(this.packet);
+	}
+
+	public void setCH(ClientHandler ch) {
+		this.ch = ch;
+	}
+
+}

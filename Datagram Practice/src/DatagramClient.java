@@ -34,7 +34,7 @@ public class DatagramClient extends Thread
 			{
 				socket.receive(packet);
 			}
-			catch (IOException e)
+			catch(IOException e)
 			{
 				e.printStackTrace();
 			}

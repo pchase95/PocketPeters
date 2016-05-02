@@ -1,0 +1,8 @@
+
+public enum PacketType {
+	INVALID(-1), LOGIN(00), DISCONNECT(01);
+	PacketType(int id) {
+		this.id = id;
+	}
+	int id;
+}

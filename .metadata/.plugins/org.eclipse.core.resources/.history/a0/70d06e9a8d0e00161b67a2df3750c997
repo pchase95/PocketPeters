@@ -1,0 +1,28 @@
+
+public class Packat00List extends Packet {
+
+	@Override
+	public void writeClient(Client client) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void writeServer(Server server) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void readClient(Client client) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void readServer(Server server) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

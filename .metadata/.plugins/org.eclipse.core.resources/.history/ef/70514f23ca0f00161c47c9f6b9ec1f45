@@ -1,0 +1,54 @@
+import java.io.*;
+import java.net.DatagramPacket;
+import java.util.List;
+
+public class Packet01List extends Packet {
+	private DatagramPacket packet;
+	private List<ClientHandler> clients;
+	public Packet01List(List<ClientHandler> clients, DatagramPacket packet) {
+		super("01");
+		this.clients = clients;
+		this.packet = packet;
+	}
+	
+	public Packet01List(DatagramPacket packet) {
+		super("01");
+		this.packet = packet;
+	}
+	@Override
+	public void writeClient(Client client) {
+
+	}
+
+	@Override
+	public void writeServer(Server server) {
+		try {
+			byte[] data = serialize("01"+clients);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void readClient(Client client) {
+			
+	}
+
+	@Override
+	public void readServer(Server server) {
+		
+	}
+
+	public static byte[] serialize(Object obj) throws IOException {
+	    ByteArrayOutputStream out = new ByteArrayOutputStream();
+	    ObjectOutputStream os = new ObjectOutputStream(out);
+	    os.writeObject(obj);
+	    return out.toByteArray();
+	}
+	
+	public static Object deserialize(byte[] data) throws IOException, ClassNotFoundException {
+	    ByteArrayInputStream in = new ByteArrayInputStream(data);
+	    ObjectInputStream is = new ObjectInputStream(in);
+	    return is.readObject();
+	}
+}

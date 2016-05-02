@@ -1,0 +1,79 @@
+import java.io.*;
+import java.net.*;
+import java.util.*;
+
+public class Server extends Thread {
+	private List<ClientHandler> clients;
+	private DatagramSocket socket;
+	private Lobby lobby;
+	
+	public Server(Lobby lobby) {
+		this.lobby = lobby;
+		clients = new ArrayList<>();
+		try {
+			this.socket = new DatagramSocket(4324);
+		}catch(SocketException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void run() {
+		while(true) {
+			byte[] data = new byte[1024];
+			DatagramPacket packet = new DatagramPacket(data, data.length);
+			try {
+				socket.receive(packet);
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			checkClient(packet.getAddress(), packet.getPort());
+			String msg = new String(packet.getData()).trim();
+			System.out.printf("Client[Address:%s  Port:%d] said:%n%s%n", packet.getAddress().getHostAddress(), packet.getPort(), msg);
+			for(ClientHandler client : clients) {
+				sendData(msg.getBytes(), client.clientAddress(), client.clientPort());
+			}	
+		}
+	}
+	
+	public void sendData(byte[] data, InetAddress ipAddress, int port) {
+		DatagramPacket packet = new DatagramPacket(data, data.length, ipAddress, port);
+		try {
+			socket.send(packet);
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void checkClient(InetAddress address, int port) {
+		boolean add_client = true;
+		for(ClientHandler client : clients) {
+			if(client.clientPort() == port) {
+				add_client = false;
+				break;
+			}
+		}
+		if(add_client) {
+			clients.add(new ClientHandler(address, port));
+		}
+	}
+	
+	
+	private class ClientHandler  {
+		private InetAddress address;
+		private int port;
+		public ClientHandler(InetAddress address, int port) {
+			this.address = address;
+			this.port = port;
+		}
+		
+		public InetAddress clientAddress() {
+			return this.address;
+		}
+		
+		public int clientPort() {
+			return this.port;
+		}
+	}
+}
+
+

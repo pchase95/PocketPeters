@@ -1,0 +1,9 @@
+
+public class Packet00Login extends Packet {
+
+	public Packet00Login(int packetID) {
+		super(00);
+		// TODO Auto-generated constructor stub
+	}
+
+}

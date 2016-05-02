@@ -1,0 +1,35 @@
+import java.net.DatagramPacket;
+
+public abstract class Packet {
+	String int ID;
+	public Packet(int ID) {
+		System.out.println("THIS ID IS: " + ID);
+		this.ID = ID;
+	}
+	
+	public int getID() {
+		return this.ID;
+	}
+	
+	public static Packet getPacket(DatagramPacket packet) {
+		String msg = new String(packet.getData()).trim();
+		String id = Integer.parseInt(msg.substring(0, 2));
+		switch(id) {
+		default:
+			return new Packet00Login(packet);
+		case 00:
+			return new Packet00Login(packet);
+		case 01:
+			return new Packet00Login(packet);
+		case 02:
+			return new Packet00Login(packet);
+		}
+	}
+	
+	public abstract void writeClient(Client client);
+	public abstract void writeServer(Server server);
+	
+	public abstract void readClient(Client client);
+	public abstract void readServer(Server server);
+
+}

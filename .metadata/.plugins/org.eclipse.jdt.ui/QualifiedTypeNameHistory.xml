@@ -3,7 +3,11 @@
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="java.util.AbstractCollection"/>
 <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+<fullyQualifiedTypeName name="SSCH"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="Packet.PacketTypes"/>
 <fullyQualifiedTypeName name="java.io.Serializable"/>
 <fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="SSCH"/>
+<fullyQualifiedTypeName name="packets.Packet"/>
+<fullyQualifiedTypeName name="packets.Packet01Message"/>
 </qualifiedTypeNameHistroy>

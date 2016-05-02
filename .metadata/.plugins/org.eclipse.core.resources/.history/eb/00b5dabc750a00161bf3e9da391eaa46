@@ -1,0 +1,10 @@
+import java.io.*;
+import java.net.*;
+
+public class Client extends Thread {
+	private InetAddress ipAddress;
+	public Client() {
+		
+	}
+
+}

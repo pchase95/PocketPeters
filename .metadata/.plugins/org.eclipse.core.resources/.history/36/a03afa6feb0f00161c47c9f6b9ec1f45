@@ -1,0 +1,32 @@
+package packets;
+
+import game.Client;
+import game.Server;
+
+public class Packet11Disconnect extends Packet {
+	
+	public Packet11Disconnect() {
+		super("11");
+	}
+
+	@Override
+	public void writeClient(Client client, String client_name) {
+		client.sendData(new String(this.getID()+client_name).getBytes());
+	}
+
+	@Override
+	public void writeServer(Server server) {
+		
+	}
+
+	@Override
+	public void readClient(Client client) {
+		client.getGame().getLobby().appendMsg(msg);
+	}
+
+	@Override
+	public void readServer(Server server) {
+		server.sendDataAll(this.getID().getBytes());
+	}
+
+}

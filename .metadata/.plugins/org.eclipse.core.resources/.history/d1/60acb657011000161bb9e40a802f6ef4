@@ -1,0 +1,50 @@
+package packets;
+
+import java.net.DatagramPacket;
+import game.*;
+
+public class Packet02Ready extends Packet {
+	private static final long serialVersionUID = -7918084715981220239L;
+	private DatagramPacket packet;
+	private String client_name;
+	
+	public Packet02Ready(DatagramPacket packet) {
+		super("02");
+		this.packet = packet;
+	}
+	
+	public Packet02Ready(String client_name) {
+		super("02");
+		this.client_name = client_name;
+	}
+	@Override
+	public void writeClient(Client client) {
+		client.sendData(new String(this.ID + client_name).getBytes());
+	}
+
+	@Override
+	public void writeServer(Server server) {
+
+	}
+
+	@Override
+	public void readClient(Client client) {
+		String msg = new String(packet.getData());
+		client.getGame().getLobby().appendMsg(msg);	
+	}
+	
+	@Override
+	public void readServer(Server server) {
+		String name = new String(packet.getData()).substring(2);
+		ClientHandler ch = server.getClientByName(name);
+		String msg;
+		if(!ch.getReady()) {
+			msg = " is ready!";
+			ch.setReady();
+		} else {
+			msg = " wants to start!";
+		}
+		server.sendDataAll(new String(this.ID + msg.getBytes()).getBytes());
+	}
+
+}

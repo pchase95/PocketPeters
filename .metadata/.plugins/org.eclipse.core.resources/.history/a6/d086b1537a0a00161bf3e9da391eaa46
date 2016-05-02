@@ -1,0 +1,9 @@
+
+public class Main {
+	public Client client;
+	public Server server;
+	
+	public static void main(String[] args) {
+		new LoginMenu();
+	}
+}

@@ -1,0 +1,18 @@
+
+public class Game {
+	private Client client;
+	private Server server;
+	private String client_name;
+	private String client_IP;
+	private Lobby lobby;
+	
+	public Game(String new_client_name, String new_client_IP) {
+		this.client_name = new_client_name;
+		this.client_IP = new_client_IP;
+		new Lobby(this, client_name, client_IP);
+	}
+	
+	public Lobby getLobby() {
+		return this.lobby;
+	}
+}

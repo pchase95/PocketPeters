@@ -1,0 +1,94 @@
+package game;
+
+import java.awt.BorderLayout;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import packets.*;
+
+public class Lobby extends JPanel {
+	private static final long serialVersionUID = 1L;
+	private Game game;
+	private JFrame f;
+	private JPanel buffer;
+	private JPanel south_panel;
+	private JTextField chat_field;
+	private JTextArea chat_area;
+	private JButton send_button;
+	private String client_name;
+	private JList<String> client_list;
+	private DefaultListModel<String> model;
+	
+	public Lobby(Game game, String new_client_name, String new_client_IP) {
+		this.game = game;
+		this.client_name = new_client_name;
+		buildLobby();	
+	}
+	
+	private void buildLobby() {
+		//frame
+		f = new JFrame("Lobby");
+		f.setSize(800, 600);
+		f.setDefaultCloseOperation(closeOperation());
+		setLayout(new BorderLayout());
+		
+		//chat area
+		chat_area = new JTextArea();
+		chat_area.setLineWrap(true);
+		chat_area.setEditable(false);
+		add(new JScrollPane(chat_area), BorderLayout.CENTER);
+		
+		//chat field
+		south_panel = new JPanel();
+		south_panel.setLayout(new BorderLayout());
+		chat_field = new JTextField();
+		south_panel.add(new JScrollPane(chat_field), BorderLayout.CENTER);
+		buffer = new JPanel();
+		south_panel.add(buffer, BorderLayout.NORTH);
+		send_button = new JButton("Send");
+		send_button.addActionListener(e -> {
+			String msg = chat_field.getText().trim();
+			Packet pack = new Packet01Message(client_name + "," + msg);
+			pack.writeClient(game.getClient());
+			chat_field.setText("");		
+		});
+		south_panel.add(send_button, BorderLayout.WEST);
+		add(south_panel, BorderLayout.SOUTH);
+		
+		//List
+		client_list = new JList<>();
+		model = new DefaultListModel<>();
+		client_list.setModel(model);
+		client_list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		add(new JScrollPane(client_list), BorderLayout.WEST);
+		model.addElement(client_name);
+		
+		//initialize
+		f.add(this);
+		f.setVisible(true);
+	}
+	
+	public void appendMsg(String msg) {
+		chat_area.append(msg + "\n");
+	}
+	
+	public void newUser(String name) {
+		model.addElement(name);
+	}
+	
+	public String getClientName() {
+		return client_name;
+	}
+
+	public int closeOperation() {
+		Packet disconnect = new Packet11Disconnect();
+		disconnect.writeClient(game.getClient());
+		return JFrame.EXIT_ON_CLOSE;
+	}
+}

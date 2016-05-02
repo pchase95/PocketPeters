@@ -1,0 +1,42 @@
+package packets;
+
+import java.net.DatagramPacket;
+
+import game.Client;
+import game.Server;
+
+public class Packet01Message extends Packet {
+	private static final long serialVersionUID = -3508052512076027658L;
+	private DatagramPacket packet;
+	public Packet01Message(DatagramPacket packet) {
+		super("01");
+		this.packet = packet;
+	}
+	
+	public Packet01Message(String msg) {
+		super("01");
+		byte[] data = new String(this.ID + msg).getBytes();
+		packet = new DatagramPacket(data, data.length);
+	}
+
+	@Override
+	public void writeClient(Client client) {
+
+	}
+
+	@Override
+	public void writeServer(Server server) {
+
+	}
+
+	@Override
+	public void readClient(Client client) {
+		client.getGame().getLobby().appendMsg(new String(packet.getData()).substring(2));
+	}
+
+	@Override
+	public void readServer(Server server) {
+		server.sendDataAll(packet.getData());
+	}
+
+}

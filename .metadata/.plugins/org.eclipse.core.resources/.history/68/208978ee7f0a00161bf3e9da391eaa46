@@ -1,0 +1,42 @@
+import java.io.*;
+import java.net.*;
+
+public class Server extends Thread {
+	private DatagramSocket socket;
+	private Lobby lobby;
+	
+	public Server(Lobby lobby) {
+		this.lobby = lobby;
+		try {
+			this.socket = new DatagramSocket(4324);
+		}catch(SocketException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void run() {
+		while(true) {
+			byte[] data = new byte[1024];
+			DatagramPacket packet = new DatagramPacket(data, data.length);
+			try {
+				socket.receive(packet);
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			String msg = new String(packet.getData()).trim();
+			System.out.printf("Client[Address:%s  Port:%d] said:%n%s%n", packet.getAddress().getHostAddress(), packet.getPort(), msg);
+			sendData(msg.getBytes(), packet.getAddress(), packet.getPort());
+			lobby.appendMsg(msg)
+		}
+	}
+	
+	public void sendData(byte[] data, InetAddress ipAddress, int port) {
+		DatagramPacket packet = new DatagramPacket(data, data.length, ipAddress, port);
+		try {
+			socket.send(packet);
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+}

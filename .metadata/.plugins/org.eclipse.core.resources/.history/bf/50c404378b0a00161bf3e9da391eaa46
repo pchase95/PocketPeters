@@ -1,0 +1,17 @@
+
+public class Game {
+	private Client client;
+	private Server server;
+	private String client_name;
+	private String client_IP;
+	
+	public Game(String new_client_name, String new_client_IP) {
+		this.client_name = new_client_name;
+		this.client_IP = new_client_IP;
+		init();
+	}
+	
+	private void init() {
+		
+	}
+}

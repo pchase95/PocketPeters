@@ -1,0 +1,34 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class Lobby extends JPanel implements ActionListener {
+	private JFrame f;
+	private JTextField chat_field;
+	private JTextArea chat_area;
+	private JScrollPane area_scroll_pane;
+	
+	public Lobby(String new_client_name, String new_client_IP) {
+		buildLobby();
+	}
+	
+	private void buildLobby() {
+		f = new JFrame("Lobby");
+		f.setSize(800, 600);
+		setLayout(new BorderLayout());
+		chat_area = new JTextArea();
+		chat_area.setColumns(40);
+		chat_area.setLineWrap(true);
+		area_scroll_pane = new JScrollPane(chat_area);
+		add(area_scroll_pane);
+		
+		
+		f.add(this);
+		f.setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+	}
+}

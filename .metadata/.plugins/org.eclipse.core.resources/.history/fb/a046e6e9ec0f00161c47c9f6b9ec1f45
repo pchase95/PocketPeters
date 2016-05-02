@@ -1,0 +1,43 @@
+package packets;
+
+import java.net.DatagramPacket;
+
+import game.Client;
+import game.Server;
+
+public class Packet11Disconnect extends Packet {
+	private static final long serialVersionUID = 7397367557267184374L;
+	private DatagramPacket packet;
+	private String client_name;
+	
+	public Packet11Disconnect(DatagramPacket packet) {
+		super("11");
+		this.packet = packet;
+	}
+	
+	public Packet11Disconnect(String client_name) {
+		super("11");
+		this.client_name = client_name;
+	}
+
+	@Override
+	public void writeClient(Client client) {
+		client.sendData(new String(this.ID).getBytes());
+	}
+
+	@Override
+	public void writeServer(Server server) {
+		
+	}
+
+	@Override
+	public void readClient(Client client) {
+		client.getGame().getLobby().appendMsg(new String(packet.getData() + " has disconnected...").substring(2));
+	}
+
+	@Override
+	public void readServer(Server server) {
+		server.sendDataAll(this.getID().getBytes());
+	}
+
+}

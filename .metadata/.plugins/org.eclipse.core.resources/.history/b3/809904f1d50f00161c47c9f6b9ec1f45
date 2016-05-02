@@ -1,0 +1,57 @@
+import java.io.*;
+import java.net.DatagramPacket;
+import java.util.List;
+
+public class Packet01List extends Packet {
+	private static final long serialVersionUID = 1L;
+	private DatagramPacket packet;
+	private List<ClientHandler> clients;
+	public Packet01List(List<ClientHandler> clients, DatagramPacket packet) {
+		super("01");
+		this.clients = clients;
+		this.packet = packet;
+	}
+	
+	public Packet01List(DatagramPacket packet) {
+		super("01");
+		this.packet = packet;
+	}
+	@Override
+	public void writeClient(Client client) {
+
+	}
+
+	@Override
+	public void writeServer(Server server) {
+		try {
+			byte[] data2 = serialize("01" + clients);
+			byte[] data = serialize(clients);
+
+			System.out.println("MEME: " + data2);
+			System.out.println("DATA: " + data);
+			List<ClientHandler> new_clients = (List<ClientHandler>) deserialize(data);
+			String nacho = (String)deserialize(data2);
+			System.out.println("NACHO: " + nacho);
+			System.out.println("LIST: " + new_clients);
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void readClient(Client client) {
+//		try {
+//			byte[] data = packet.getData();
+//			//clients = (List<ClientHandler>) deserialize(packet.getData());
+//		} catch (ClassNotFoundException | IOException e) {
+//			e.printStackTrace();
+//		}
+//		byte[] data = packet.getData();
+//		System.out.println(data);
+	}
+
+	@Override
+	public void readServer(Server server) {
+		
+	}
+}

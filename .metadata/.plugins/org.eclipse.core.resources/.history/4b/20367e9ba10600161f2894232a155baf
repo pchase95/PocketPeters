@@ -1,0 +1,10 @@
+
+public class Packet00Login extends Packet {
+
+	
+	
+	public Packet00Login(byte[] data) {
+		super(00);
+	}
+
+}

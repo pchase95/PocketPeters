@@ -1,0 +1,41 @@
+import java.net.DatagramPacket;
+import java.util.List;
+
+public class Packet01List extends Packet {
+	private DatagramPacket packet;
+	private List<ClientHandler> clients;
+	public Packet01List(List<ClientHandler> clients, DatagramPacket packet) {
+		super("01");
+		this.clients = clients;
+		this.packet = packet;
+	}
+	
+	public Packet01List(DatagramPacket packet) {
+		super("01");
+		this.packet = packet;
+	}
+	@Override
+	public void writeClient(Client client) {
+
+	}
+
+	@Override
+	public void writeServer(Server server) {
+		server.sendData(new String("01" + clients.toString().trim()).getBytes(), packet.getAddress(), packet.getPort());
+	}
+
+	@Override
+	public void readClient(Client client) {
+		String str = new String(packet.getData()).trim();
+		String list_string = str.substring(2);
+		System.out.println("LISTS:");
+		System.out.println(str);
+		System.out.println(list_string);
+	}
+
+	@Override
+	public void readServer(Server server) {
+		
+	}
+
+}

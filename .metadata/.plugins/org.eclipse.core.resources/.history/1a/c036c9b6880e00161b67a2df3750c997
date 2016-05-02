@@ -1,0 +1,38 @@
+import java.net.DatagramPacket;
+
+public class Packet00Login extends Packet {
+	private DatagramPacket packet;
+	public Packet00Login(DatagramPacket packet) {
+		super("00");
+		this.packet = packet;
+	}
+
+	
+	public Packet00Login() {
+		super("00");
+	}
+
+	@Override
+	public void writeClient(Client client) {
+		client.sendData(this.ID.getBytes());
+	}
+	
+	@Override
+	public void readClient(Client client) {
+		client.getGame().getLobby().newUser();
+	}
+
+	
+	@Override
+	public void writeServer(Server server) {
+		
+	}
+
+	@Override
+	public void readServer(Server server) {
+		server.newClient(this.packet);
+		server.sendDataAll(packet.getData());
+	}
+
+
+}

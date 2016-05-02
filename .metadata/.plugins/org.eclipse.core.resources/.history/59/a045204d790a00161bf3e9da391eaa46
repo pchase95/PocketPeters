@@ -1,0 +1,69 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class LoginMenu extends JPanel {
+	private JFrame f;
+	private JPanel grid;
+	private JLabel title;
+	private JLabel name_label;
+	private JLabel IP_label;
+	private JTextField name_field;
+	private JTextField IP_field;
+	private JButton login_button;
+	
+	public LoginMenu() {
+		BuildLogin();
+	}
+	
+	private void BuildLogin() {
+		f = new JFrame("Login");
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setSize(400, 200);
+		f.setResizable(false);
+		setLayout(new BorderLayout());
+		
+		title = new JLabel("Welcome to Pete Arena!");
+		this.add(title, BorderLayout.NORTH);
+		
+		grid = new JPanel();
+		grid.setLayout(new GridLayout(0, 1));
+		
+		name_label = new JLabel("Name");
+		grid.add(name_label);
+		name_field = new JTextField();
+		name_field.setText("A_sad_Peter");
+		grid.add(name_field);
+		
+		IP_label = new JLabel("IP Address");
+		grid.add(IP_label);
+		IP_field = new JTextField();
+		IP_field.setText("10.110.226.37");
+		grid.add(IP_field);
+		
+		this.add(grid, BorderLayout.CENTER);
+		login_button = new JButton("Login");
+		this.add(login_button, BorderLayout.SOUTH);
+		
+		login_button.addActionListener(e -> {
+			f.dispose();
+			new Lobby(name_field.getText().trim(), IP_field.getText().trim());
+		});
+		/*
+		login_button.addMouseListener(new MouseListener(){
+			@Override
+			public void mouseClicked(MouseEvent e) {}
+			@Override
+			public void mousePressed(MouseEvent e) {}
+			@Override
+			public void mouseReleased(MouseEvent e) {}
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+			@Override
+			public void mouseExited(MouseEvent e) {}
+		});
+		*/
+		f.add(this);
+		f.setVisible(true);
+	}
+}

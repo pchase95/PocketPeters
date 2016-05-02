@@ -1,0 +1,33 @@
+import java.io.Serializable;
+import java.net.InetAddress;
+import java.util.List;
+
+public class ClientHandler implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+		private InetAddress address;
+		private int port;
+		private int ID;
+		private List<ClientHandler> other_clients;
+		public ClientHandler(InetAddress address, int port, List<ClientHandler> other_clients) {
+			this.address = address;
+			this.port = port;
+			this.other_clients = other_clients;
+		}
+		
+		public InetAddress clientAddress() {
+			return this.address;
+		}
+		
+		public int clientPort() {
+			return this.port;
+		}
+		
+		public int getID() {
+			return this.ID;
+		}
+		
+		public List<ClientHandler> getOtherClients() {
+			return this.other_clients;
+		}
+	}
