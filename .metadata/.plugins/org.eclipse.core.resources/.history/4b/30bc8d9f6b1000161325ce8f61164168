@@ -1,0 +1,7 @@
+package game;
+
+import Packet;
+
+public class Packet08Stop extends Packet {
+
+}

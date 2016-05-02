@@ -1,0 +1,32 @@
+package packets;
+
+import game.Client;
+import game.Server;
+
+public class Packet04Spawn extends Packet {
+	private static final long serialVersionUID = -2903041532247246962L;
+
+	public Packet04Spawn() {
+		super(04);
+	}
+	@Override
+	public void writeClient(Client client) {
+
+	}
+
+	@Override
+	public void writeServer(Server server) {
+
+	}
+
+	@Override
+	public void readClient(Client client) {
+
+	}
+
+	@Override
+	public void readServer(Server server) {
+
+	}
+
+}

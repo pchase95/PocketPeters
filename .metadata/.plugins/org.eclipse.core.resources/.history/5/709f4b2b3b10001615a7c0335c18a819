@@ -1,0 +1,33 @@
+package packets;
+
+import game.Client;
+import game.Server;
+
+public class Packet06ID extends Packet {
+	private static final long serialVersionUID = 7083970345599215615L;
+
+	public Packet06ID(int ID) {
+		super(06);
+	}
+	
+	@Override
+	public void writeClient(Client client) {
+
+	}
+
+	@Override
+	public void writeServer(Server server) {
+		server.sendData(pack, ipAddress, port);
+	}
+
+	@Override
+	public void readClient(Client client) {
+
+	}
+
+	@Override
+	public void readServer(Server server) {
+
+	}
+
+}

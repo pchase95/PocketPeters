@@ -1,0 +1,32 @@
+package packets;
+
+import game.Client;
+import game.Server;
+
+public class Packet05Init extends Packet {
+
+	public Packet05Init() {
+		super(05);
+	}
+	@Override
+	public void writeClient(Client client) {
+
+	}
+
+	@Override
+	public void writeServer(Server server) {
+
+	}
+
+	@Override
+	public void readClient(Client client) {
+
+	}
+
+	@Override
+	public void readServer(Server server) {
+		// TODO Auto-generated ethod stub
+
+	}
+
+}

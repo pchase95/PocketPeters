@@ -1,0 +1,11 @@
+package game;
+
+import java.io.Serializable;
+
+public class Main implements Serializable {	
+	private static final long serialVersionUID = 2579540829264659169L;
+
+	public static void main(String[] args) {
+		new LoginMenu();
+	}
+}

@@ -1,0 +1,32 @@
+package packets;
+
+import game.Client;
+import game.Server;
+
+public class Packet08Stop extends Packet {
+
+	public Packet08Stop(int ID) {
+		super(ID);
+	}
+
+	@Override
+	public void writeClient(Client client) {
+
+	}
+
+	@Override
+	public void writeServer(Server server) {
+
+	}
+
+	@Override
+	public void readClient(Client client) {
+
+	}
+
+	@Override
+	public void readServer(Server server) {
+
+	}
+
+}

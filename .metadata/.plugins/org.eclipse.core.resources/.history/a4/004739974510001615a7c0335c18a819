@@ -1,0 +1,32 @@
+package packets;
+
+import game.Client;
+import game.Server;
+
+public class Packet04Spawn extends Packet {
+	private static final long serialVersionUID = -2903041532247246962L;
+
+	public Packet04Spawn(int id) {
+		super(id);
+	}
+	@Override
+	public void writeClient(Client client) {
+		client.sendData(this);
+	}
+
+	@Override
+	public void writeServer(Server server) {
+		server.sendDataAllOthers(this);
+	}
+
+	@Override
+	public void readClient(Client client) {
+		System.out.println("NICE MEME");
+	}
+
+	@Override
+	public void readServer(Server server) {
+		
+	}
+
+}

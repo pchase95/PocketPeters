@@ -2,18 +2,23 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="" key="selection"/>
+		<item value="m8" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="m8"/>
+			<item value="Fuck"/>
+			<item value="spawn"/>
 			<item value="System.out"/>
+			<item value="send"/>
+			<item value="setClientName"/>
+			<item value="System.out.println"/>
 			<item value="msg"/>
-			<item value="getData"/>
-			<item value="deliverMessage"/>
 		</list>
 		<list key="replacehistory">
+			<item value=""/>
 			<item value="client_name"/>
 		</list>
 	</section>
@@ -21,7 +26,7 @@
 		<item value="319" key="DIALOG_WIDTH"/>
 		<item value="1|Cantarell|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 		<item value="432" key="DIALOG_HEIGHT"/>
-		<item value="1014" key="DIALOG_X_ORIGIN"/>
-		<item value="267" key="DIALOG_Y_ORIGIN"/>
+		<item value="1221" key="DIALOG_X_ORIGIN"/>
+		<item value="271" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

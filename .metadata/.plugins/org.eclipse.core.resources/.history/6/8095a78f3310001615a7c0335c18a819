@@ -1,0 +1,92 @@
+package game;
+
+import packets.*;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Server extends Thread {
+	private List<ClientHandler> clients = new ArrayList<>();
+	private DatagramSocket socket;
+	private int ID = 0;
+	
+	public Server() {
+		
+		try {
+			this.socket = new DatagramSocket(4324);
+		}catch(SocketException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void run() {
+		while(true) {
+			byte[] data = new byte[1024];
+			DatagramPacket packet = new DatagramPacket(data, data.length);
+			try {
+				socket.receive(packet);
+				Packet pack = (Packet)Packet.deserialize(packet.getData());
+				pack.readServer(this);
+			}catch(IOException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void sendData(Packet pack, InetAddress ipAddress, int port) {
+		try {
+			byte[] data = Packet.serialize(pack);
+			DatagramPacket packet = new DatagramPacket(data, data.length, ipAddress, port);
+			socket.send(packet);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public void sendDataAll(Packet pack) {
+		for(ClientHandler ch : clients) {
+			sendData(pack, ch.clientAddress(), ch.clientPort());
+		}
+	}
+	
+	
+	public void newClient(Packet00Login pack) {
+		sendDataAll(pack);
+		String client_name = pack.getName();
+		ClientHandler ch = new ClientHandler(pack.getIpAddress(), pack.getPort(), clients, client_name, ID++);
+		for(ClientHandler client : clients) {
+			Packet pack2 = new Packet00Login(pack2.getName(), pack.getIpAddress(), pack.getPort());
+			pack2.writeServer(this);
+		}
+		clients.add(ch);
+	}
+	
+	public void removeClient(String client_name) {
+		for(ClientHandler ch : clients) {
+			if(ch.toString().equals(client_name.trim())) {
+				clients.remove(ch);
+				return;
+			}
+		}
+	}
+	public List<ClientHandler> getClients() {
+		return this.clients;
+	}
+	
+	public ClientHandler getClientByName(String name) {
+		for(ClientHandler ch : clients) {
+			if(ch.toString().equals(name.trim())) {
+				return ch;
+			}
+		}
+		return null;
+	}
+	
+}
+
+

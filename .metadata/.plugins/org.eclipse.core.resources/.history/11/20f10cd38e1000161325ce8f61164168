@@ -1,0 +1,235 @@
+package nick;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import packets.Packet;
+import packets.Packet07Move;
+import packets.Packet08Stop;
+import packets.Packet09Shoot;
+
+public class Player implements KeyListener, MouseListener
+{
+	private int x_pos, y_pos;
+	private int x_vel = 0, y_vel = 0;
+	private int speed = 5;
+	private Shot shot[] = new Shot[6];
+	private int count = 0;
+	private boolean reloading = false;
+	private int reloadDelay = 50;
+	private Map map;
+	private int player_ID = -1;
+	private String player_name;
+	
+	public Player(Map map, int id, String name) {
+
+		this.map = map;
+		this.player_ID = id;
+		this.player_name = name;
+		for(int i = 0; i < shot.length; i++)	{	shot[i] = new Shot();	}
+	}
+	
+	public void paintPlayer(Graphics g)
+	{
+		updatePosition();
+		g.setColor(Color.RED);
+		g.fillOval(x_pos-15, y_pos-15, 30, 30);
+		
+		for(int i = 0; i < shot.length; i++)
+		{
+			shot[i].paintShot(g);
+		}
+		//puts a delay to avoid a glitch
+		count++;
+		if(count > reloadDelay && reloading)
+		{
+			reload();
+			reloading = false;
+		}
+	}
+	
+	public void updatePosition()
+	{
+		if(!canMove(x_pos+x_vel,y_pos+y_vel))
+		{
+			x_pos+=x_vel;
+			y_pos+=y_vel;
+		}
+		
+	}
+	public boolean canMove(int newX, int newY)
+	{
+		for(int i = 0; i < BattleGrounds.map1.length; i++)
+		{
+			for(int j = 0; j < BattleGrounds.map1[i].length; j++)
+			{
+				if(BattleGrounds.map1[i][j] == 1)
+				{
+					if(newX >= (j*50) && newX <= (j*50 + 50) && newY >= (i*50) && newY <= (i*50 + 50))
+					{
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	public void setXVEL(int i) { this.x_vel = i; }
+	public void setYVEL(int i) { this.y_vel = i; }
+	
+	@Override
+	public void keyTyped(KeyEvent e) {}
+	@Override
+	public void keyPressed(KeyEvent e)
+	{
+		if(e.getKeyCode() == KeyEvent.VK_W) {
+			moveUp();
+			Packet07Move move = new Packet07Move(map.getClient().getClientID());
+			move.setDir(0);
+			move.writeClient(map.getClient());
+		}
+		if(e.getKeyCode() == KeyEvent.VK_A) {
+			x_vel = -speed;
+			Packet07Move move = new Packet07Move(map.getClient().getClientID());
+			move.setDir(2);
+			move.writeClient(map.getClient());
+		}
+		if(e.getKeyCode() == KeyEvent.VK_S) {
+			y_vel = speed;
+			Packet07Move move = new Packet07Move(map.getClient().getClientID());
+			move.setDir(1);
+			move.writeClient(map.getClient());
+		}
+		if(e.getKeyCode() == KeyEvent.VK_D) {
+			x_vel = speed;
+			Packet07Move move = new Packet07Move(map.getClient().getClientID());
+			move.setDir(3);
+			move.writeClient(map.getClient());
+		}
+		if(e.getKeyCode() == KeyEvent.VK_R)
+		{
+			count = 0;
+			reloading = true;//reload();
+		}
+	}
+	
+	
+	public void moveUp() {
+		y_vel = -speed;
+	}
+	
+	public void moveDown() {
+		
+	}
+	
+	public void moveLeft() {
+		
+	}
+	
+	public void moveRight() {
+		
+	}
+	@Override
+	public void keyReleased(KeyEvent e)
+	{
+		if(e.getKeyCode() == KeyEvent.VK_W) {
+			y_vel = 0;
+			Packet stop = new Packet08Stop(map.getClient().getClientID());
+			stop.writeClient(map.getClient());
+		}
+		if(e.getKeyCode() == KeyEvent.VK_A) {
+			x_vel = 0;
+			Packet stop = new Packet08Stop(map.getClient().getClientID());
+			stop.writeClient(map.getClient());
+		}
+		if(e.getKeyCode() == KeyEvent.VK_S) {
+			y_vel = 0;
+			Packet stop = new Packet08Stop(map.getClient().getClientID());
+			stop.writeClient(map.getClient());
+		}
+		if(e.getKeyCode() == KeyEvent.VK_D) {
+			x_vel = 0;
+			Packet stop = new Packet08Stop(map.getClient().getClientID());
+			stop.writeClient(map.getClient());
+		}
+	}
+
+	
+	public void stop() {
+		this.x_vel = 0;
+	}
+
+	public void mouseClicked(MouseEvent arg0) {}
+	public void mouseEntered(MouseEvent arg0) {}
+	public void mouseExited(MouseEvent arg0) {}
+	public void mousePressed(MouseEvent e) 
+	{
+		fireShot(e.getX(), e.getY());
+		Packet09Shoot shoot = new Packet09Shoot(map.getClient().getClientID());
+		shoot.setCoords(e.getX(), e.getY());
+		shoot.writeClient(map.getClient());
+	}
+	public void fireShot(int x_click, int y_click) {
+		int x = 0;
+		if(shot[x].getFired())
+		{
+			x++;
+//			if(x == shot.length)	{	break;	}
+		}
+		if(x < shot.length && count > reloadDelay) { 
+			shot[x].shoot(x_pos,y_pos,x_click,y_click);	
+		}
+	}
+	public void mouseReleased(MouseEvent arg0) {}
+	private void reload()
+	{
+		for(int i = 0; i < shot.length; i++)	{	shot[i].loaded();	}
+	}
+	
+	public void setCoords(int x, int y) {
+		this.x_pos = x;
+		this.y_pos = y;
+	}
+	
+	public void spawn() {
+		switch(player_ID) {
+		case(0):
+			x_pos = 200;
+			y_pos = 200;
+			return;
+		case(1):
+			x_pos = 200;
+			y_pos = 600;
+			return;
+		case(2):
+			x_pos = 600;
+			y_pos = 200;
+			return;
+		case(3):
+			x_pos = 600;
+			y_pos = 600;
+			return;
+		}
+	}
+	
+	public int getID() {
+		return this.player_ID;
+	}
+	
+	public String toString() {
+		return "Player " + this.player_ID + ": " + this.player_name;
+	}
+	
+	public int getX() {
+		return x_pos;
+	}
+	
+	public int getY() {
+		return y_pos;
+	}
+}

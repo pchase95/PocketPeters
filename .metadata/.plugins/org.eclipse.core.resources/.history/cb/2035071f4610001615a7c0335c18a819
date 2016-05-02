@@ -1,0 +1,53 @@
+package packets;
+
+import game.Client;
+import game.Server;
+
+public class Packet03Start extends Packet {
+	private static final long serialVersionUID = -875892452723281529L;
+	
+	public Packet03Start(int id) {
+		super(40);
+	}
+	
+	@Override
+	public void writeClient(Client client) {
+		
+	}
+
+	@Override
+	public void writeServer(Server server) {
+		server.sendDataAll(this);
+	}
+
+	@Override
+	public void readClient(Client client) {
+		client.getGame().getLobby().startGame();
+		System.out.println(client.getClientID());
+		switch(client.getClientID()) {
+			default:
+				return;
+			case(0):
+				client.getGame().getMap().setCoords(200, 200);
+				Packet spawn = new Packet04Spawn(0, 200, 200);
+				spawn.writeClient(client);
+				return;
+			case(1):
+				client.getGame().getMap().setCoords(200, 800);
+				return;
+			case(2):
+				client.getGame().getMap().setCoords(800, 200);
+				return;
+			case(3):
+				client.getGame().getMap().setCoords(800, 800);
+				return;
+		}
+		
+	}
+
+	@Override
+	public void readServer(Server server) {
+		
+	}
+
+}

@@ -1,0 +1,39 @@
+package packets;
+
+import game.Client;
+import game.Server;
+
+public class Packet09Shoot extends Packet {
+	private static final long serialVersionUID = 2037037939855286157L;
+	private int x_coord;
+	private int y_coord;
+
+	public Packet09Shoot(int ID) {
+		super(ID);
+	}
+
+	@Override
+	public void writeClient(Client client) {
+		client.sendData(this);
+	}
+
+	@Override
+	public void writeServer(Server server) {
+
+	}
+
+	@Override
+	public void readClient(Client client) {
+
+	}
+
+	@Override
+	public void readServer(Server server) {
+		server.sendDataAllOthers(this);
+	}
+
+	public void setCoords(int x, int y) {
+		x_coord = x;
+		y_coord = y;
+	}
+}
