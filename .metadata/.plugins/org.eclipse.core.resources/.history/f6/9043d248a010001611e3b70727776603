@@ -37,6 +37,7 @@ public class Server extends Thread {
 				new_address = packet.getAddress();
 				new_port = packet.getPort();
 				Packet pack = (Packet)Packet.deserialize(packet.getData());
+				System.out.println("Address: " + packet.getAddress() + ", Port: " + packet.getPort());
 				pack.readServer(this);
 			} catch(IOException | ClassNotFoundException e) {
 				e.printStackTrace();
@@ -65,10 +66,11 @@ public class Server extends Thread {
 	public void newClient(Packet00Login pack) {
 		sendDataAll(pack);
 		ClientHandler ch = new ClientHandler(new_address, new_port, clients, pack.getName(), ID);
+		System.out.println("MemeAddress: " + pack.getIpAddress() + ", MemePort: " + pack.getPort());
 		Packet id_pack = new Packet06ID(ID++, new_address, new_port);
 		id_pack.writeServer(this);
 		for(ClientHandler client : clients) {
-			Packet pack2 = new Packet00Login(client.toString(), new_address, new_port);
+			Packet pack2 = new Packet00Login(client.toString(), pack.getIpAddress(), pack.getPort());
 			pack2.writeServer(this);
 		}
 		clients.add(ch);
@@ -107,6 +109,13 @@ public class Server extends Thread {
 		return clients.get(id).getOtherClients();
 	}
 	
+//	public InetAddress getNewAddress() {
+//		return this.new_address;
+//	}
+//	
+//	public int getNewPort() {
+//		return this.new_port;
+//	}
 	
 }
 

@@ -19,7 +19,7 @@ public class Game {
 			server.start();
 		}
 		lobby = new Lobby(this, client_name, client_IP);
-		client = new Client(this, client_IP);
+		client = new Client(this, "localhost");
 		client.start();
 	}
 	

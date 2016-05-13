@@ -34,9 +34,8 @@ public class Server extends Thread {
 			DatagramPacket packet = new DatagramPacket(data, data.length);
 			try {
 				socket.receive(packet);
-				new_address = packet.getAddress();
-				new_port = packet.getPort();
 				Packet pack = (Packet)Packet.deserialize(packet.getData());
+				System.out.println("Address: " + packet.getAddress() + ", Port: " + packet.getPort());
 				pack.readServer(this);
 			} catch(IOException | ClassNotFoundException e) {
 				e.printStackTrace();
@@ -64,11 +63,12 @@ public class Server extends Thread {
 	
 	public void newClient(Packet00Login pack) {
 		sendDataAll(pack);
-		ClientHandler ch = new ClientHandler(new_address, new_port, clients, pack.getName(), ID);
-		Packet id_pack = new Packet06ID(ID++, new_address, new_port);
+		ClientHandler ch = new ClientHandler(pack.getIpAddress(), pack.getPort(), clients, pack.getName(), ID);
+		System.out.println("MemeAddress: " + pack.getIpAddress() + ", MemePort: " + pack.getPort());
+		Packet id_pack = new Packet06ID(ID++, pack.getIpAddress(), pack.getPort());
 		id_pack.writeServer(this);
 		for(ClientHandler client : clients) {
-			Packet pack2 = new Packet00Login(client.toString(), new_address, new_port);
+			Packet pack2 = new Packet00Login(client.toString(), pack.getIpAddress(), pack.getPort());
 			pack2.writeServer(this);
 		}
 		clients.add(ch);
@@ -106,7 +106,6 @@ public class Server extends Thread {
 	public List<ClientHandler> getClientListById(int id) {
 		return clients.get(id).getOtherClients();
 	}
-	
 	
 }
 
